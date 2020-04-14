@@ -1,0 +1,92 @@
+<!DOCTYPE html>
+{% load static %}
+<html lang="fr">
+<head>
+    <meta charset="UTF-8">
+    <meta name="description" content="Brocanticke - eBrocante">
+    <meta name="keywords" content="Brocante, Antiquite, pas cher, Vide de Grenier">    
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>{% block title %}Index | eBrocante{% endblock %}</title>
+
+    <!-- Google Font -->
+    <link href="https://fonts.googleapis.com/css?family=Muli:300,400,500,600,700,800,900&display=swap" rel="stylesheet">
+
+    <!-- Css Styles -->
+    <link rel="stylesheet" href="{% static 'css/bootstrap.min.css' %}" type="text/css">
+    <link rel="stylesheet" href="{% static 'css/font-awesome.min.css' %}" type="text/css">
+    <link rel="stylesheet" href="{% static 'css/themify-icons.css' %}" type="text/css">
+    <link rel="stylesheet" href="{% static 'css/elegant-icons.css' %}" type="text/css">
+    <link rel="stylesheet" href="{% static 'css/owl.carousel.min.css' %}" type="text/css">
+    <link rel="stylesheet" href="{% static 'css/nice-select.css' %}" type="text/css">
+    <link rel="stylesheet" href="{% static 'css/jquery-ui.min.css' %}" type="text/css">
+    <link rel="stylesheet" href="{% static 'css/slicknav.min.css' %}" type="text/css">
+    <link rel="stylesheet" href="{% static 'css/style.css' %}" type="text/css">
+
+</head>
+<body>
+	{% include 'layouts/header.html' %}
+    {% block search %}
+    <div class="header-bottom"><!--header-bottom-->
+			<div class="container">
+				<div class="row">
+				  <div class="col-md-12">
+					  <form action="{% url 'shopSearch' %}" method="GET" class="form-group">
+                     <div class="searchInShop">
+						 <input type="text" class="form-control" placeholder="Rechercher un article ..." name="search" required>
+						  <span class="input-group-btn">
+                            <button type="submit" id="search-btn" class="btn btn-primary active"><i class="fa fa-search"></i>
+                            </button>
+                          </span>
+                    </div>
+                    </form>
+
+				  </div>
+				</div>
+                </div>
+    </div><!--/header-bottom-->
+
+    {% endblock %}
+
+    {% block content %}
+
+    {% endblock %}
+
+    {% include 'layouts/footer.html' %}
+
+    {% block scriptPage %}
+         <!-- Js Plugins -->
+    {% block jquery %}
+    <script src="{% static 'js/jquery-3.3.1.min.js' %}"></script>
+	{% endblock %}
+    <script src="{% static 'js/bootstrap.min.js' %}"></script>
+    <script src="{% static 'js/jquery-ui.min.js' %}"></script>
+    <script src="{% static 'js/jquery.countdown.min.js' %}"></script>
+    <script src="{% static 'js/jquery.nice-select.min.js' %}"></script>
+    <script src="{% static 'js/jquery.zoom.min.js' %}"></script>
+    <script src="{% static 'js/jquery.dd.min.js' %}"></script>
+    <script src="{% static 'js/jquery.slicknav.js' %}"></script>
+    <script src="{% static 'js/owl.carousel.min.js' %}"></script>
+    <script src="{% static 'js/main.js' %}"></script>
+    {% endblock %}
+    {% block scriptJs %}
+
+    {% endblock %}
+
+
+
+        {% if emailNewsLetter != 'Done' and emailNewsLetter %}
+            <script type="text/javascript">
+            document.getElementById("news").setAttribute('value','{{ emailNewsLetter }}');
+            var error = document.getElementById("error");
+            error.insertAdjacentHTML('afterbegin', '<span>- Erreur cette addresse est invalide ou deja inscrite a notre news letter.</span>');
+            </script>
+         {% elif emailNewsLetter == 'Done' %}
+            <script type="text/javascript">
+            var done = document.getElementById("done");
+            done.insertAdjacentHTML('afterbegin', '<span>Succes, vous venez de vous inscrire a notre news letter.</span>');
+            </script>
+        {% endif %}
+
+</body>
+</html>
