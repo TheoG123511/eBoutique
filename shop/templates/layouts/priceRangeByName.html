@@ -1,0 +1,14 @@
+{% block priceRange %}
+<div class="price-range3"><!--price-range-->
+							<h2>Échelle de prix</h2>
+							<div class="well">
+								<form name="contact-form" method="get" action="{% url 'shopPriceRangeByName' productName %}">
+									<div class="displayFlex form-group">
+										{{ form.as_p }}
+										<p><button type="submit" class="btn btn-primary"> <i class="fa fa-search"></i></button></p>
+									</div>
+								</form>
+
+							</div>
+						</div><!--/price-range-->
+{% endblock %}
