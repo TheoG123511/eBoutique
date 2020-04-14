@@ -1,0 +1,146 @@
+{% extends "base.html" %}
+{% load static %}
+{% load profile_extras %}
+
+{% block title %}
+{% if payment %}
+Payment Comande | eBrocante
+{% else %}
+Checkout | eBrocante
+{% endif %}
+{% endblock %}
+{% block jquery %}
+<!-- Production version -->
+
+<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.4.1/jquery.min.js"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.16.0/umd/popper.min.js"></script>
+<script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.4.1/js/bootstrap.min.js"></script>
+
+{% endblock %}
+{% block search %}
+{% endblock %}
+{% block content %}
+<section>
+    <!-- Shopping Cart Section Begin -->
+    <div class="checkout-section spad">
+        <div class="container">
+             {% if not payment %}
+            <div class="col-lg-6">
+                 <div class="dropdown checkout-addr">
+                    <button type="button" class="site-btn place-btn dropdown-toggle" data-toggle="dropdown">
+                      Mes Addresse
+                    </button>
+
+                    <div class="dropdown-menu">
+                        {% if address.count %}
+                            {% for item in address %}
+
+                                <a class="dropdown-item" href="{% url 'CheckOut' item.id %}">{{ item.address }}, {{ item.cp }} {{ item.city }}, {{ item.country }}</a>
+
+                            {% endfor %}
+                        {% else %}
+                        <p class="dropdown-item">Aucune Addresse Trouvé</p>
+                        {% endif %}
+
+                    </div>
+
+
+                  </div>
+            </div>
+            {% endif %}
+            {% if payment %}
+            <form action="{% url 'StateOrder' %}" method="post" class="checkout-form" method="post">
+             {% else %}
+                <form action="{% url 'Payment' %}" class="checkout-form" method="post">
+            {% endif %}
+                {% csrf_token %}
+                <div class="row">
+                    <div class="col-lg-6">
+                        <h4>Détails de Facturation</h4>
+                        <div class="row">
+                            <div class="col-lg-6">
+                                    {{ CheckOut.firstName.label }}
+                                    {{ CheckOut.firstName }}
+                                    {{ CheckOut.firstName.errors }}
+                                </div>
+                            <div class="col-lg-6">
+                                    {{ CheckOut.lastName.label }}
+                                    {{ CheckOut.lastName }}
+                                    {{ CheckOut.lastName.errors }}
+                                </div>
+
+                            <div class="col-lg-12">
+                                    {{ CheckOut.country.label }}
+                                    {{ CheckOut.country }}
+                                    {{ CheckOut.country.errors }}
+                                </div>
+                            <div class="col-lg-12">
+                                    {{ CheckOut.address.label }}
+                                    {{ CheckOut.address }}
+                                </div>
+                            <div class="col-lg-12">
+                                    {{ CheckOut.city.label }}
+                                    {{ CheckOut.city }}
+                                    {{ CheckOut.city.errors }}
+                                </div>
+                            <div class="col-lg-12">
+                                    {{ CheckOut.cp.label }}
+                                    {{ CheckOut.cp }}
+                                </div>
+
+                            <div class="col-lg-6">
+                                    {{ CheckOut.mobilePhone.label }}
+                                    {{ CheckOut.mobilePhone }}
+                                </div>
+                        </div>
+                    </div>
+
+                    <div class="col-lg-6">
+                        <div class="place-order">
+                            <h4>Votre Commande</h4>
+                            <div class="order-total">
+                                <ul class="order-table">
+                                    <li>Produit <span>Total</span></li>
+                                    {% for item in product %}
+                                    <li class="fw-normal">{{ item.product.name }} x {{ item.quantity }}<span>${% multiply item.quantity item.product.price %}</span></li>
+                                    {% endfor %}
+                                    <li class="fw-normal">Livraison <span>$0.00</span></li>
+                                    <li class="total-price">Total <span>${{ totalTTC }}</span></li>
+                                </ul>
+                                <div class="order-btn">
+                                    {% if not payment %}
+                                    <button type="submit" class="site-btn place-btn" id="goToCard">Payer ma Commande</button>
+                                    {% else %}
+                                    {% autoescape off %}
+                                    {{ payment }}
+                                    {% endautoescape %}
+
+                                    {% endif %}
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </form>
+        </div>
+    </section>
+    <!-- Shopping Cart Section End -->
+
+{% endblock %}
+{% block scriptJs %}
+<script src="https://checkout.stripe.com/checkout.js"></script>
+<script>
+{% if disabled %}
+document.getElementById("firstName").readOnly = true;
+document.getElementById("lastName").readOnly = true;
+document.getElementById("mobilePhone").readOnly = true;
+document.getElementById("country").readOnly = true;
+document.getElementById("address").readOnly = true;
+document.getElementById("city").readOnly = true;
+document.getElementById("cp").readOnly = true;
+{% endif %}
+
+</script>
+
+
+{% endblock %}

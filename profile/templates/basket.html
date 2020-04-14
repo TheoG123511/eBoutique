@@ -1,0 +1,100 @@
+{% extends "base.html" %}
+{% load static %}
+
+{% block title %}Mon Panier | eBrocante{% endblock %}
+
+
+{% block content %}
+{% load profile_extras %}
+<!-- Breadcrumb Section Begin -->
+    <div class="breacrumb-section">
+        <div class="container">
+            <div class="row">
+                <div class="col-lg-12">
+                    <div class="breadcrumb-text">
+                        <a href="{% url 'DashBoard' %}"><i class="fa fa-home"></i> Mon Compte</a>
+                        <span>Mon Panier</span>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+    <!-- Breadcrumb Section Begin -->
+
+<!-- Shopping Cart Section Begin -->
+<section class="shopping-cart spad">
+        <div class="container">
+            <div class="row">
+                <div class="col-lg-12">
+                    <div class="cart-table">
+
+                        <table>
+
+                            <thead>
+                                <tr>
+                                    <th>Article</th>
+                                    <th class="p-name">Nom</th>
+                                    <th>Prix</th>
+                                    <th>Quantité</th>
+                                    <th>Total</th>
+									<th><a href="{% url 'BasketClean' %}"><i class="ti-close"></i></a></th>
+                                </tr>
+                            </thead>
+
+                            <tbody>
+
+								{% for item in product %}
+									<tr>
+										<td class="cart-pic first-row"><a href="{% url 'ViewProduct' item.product.id %}"><img src="{{ item.product.image.url }}" alt=""></a></td>
+										<td class="cart-title first-row">
+											<h5><a href="{% url 'ViewProduct' item.product.id %}">{{ item.product.name }}</a></h5>
+										</td>
+										<td class="p-price first-row">${{ item.product.price }}</td>
+										<td class="qua-col first-row">
+
+											<div class="quantity">
+                                                <div class="pro-qty">
+                                                    <span class="dec qtybtn"><a href="{% url 'BasketAction' item.product.id 'takeOffOne' %}">-</a></span>
+                                                    <input type="text" value="{{ item.quantity }}" name="basket">
+                                                    <span class="inc qtybtn"><a href="{% url 'BasketAction' item.product.id 'addOne' %}">+</a> </span>
+                                                    {% if not item.product.quantity %}
+                                                        <span style="color:red;">Produit plus disponible</span>
+                                                    {% endif %}
+                                                </div>
+											</div>
+										</td>
+										<td class="total-price first-row">${% multiply item.quantity item.product.price %}</td>
+										<td class="close-td first-row">
+											<a href="{% url 'BasketAction' item.product.id 'delete' %}"><i class="ti-close"></i></a>
+										</td>
+									</tr>
+								{% endfor %}
+                            </tbody>
+
+
+                        </table>
+
+
+
+                    </div>
+                    <div class="row">
+
+                        <div class="col-lg-4 offset-lg-4">
+                            <div class="proceed-checkout">
+                                <ul>
+                                    <li class="subtotal">Total HT <span>${{ totalHT }}</span></li>
+                                    <li class="subtotal">Tva (20%) <span>${{ tva }}</span></li>
+                                    <li class="subtotal">Prix de livraison <span>$0</span></li>
+                                    <li class="cart-total">Total <span>${{ totalTTC }}</span></li>
+                                </ul>
+                                <a href="{% url 'CheckOut' 0 %}" class="proceed-btn">Finaliser ma commande</a>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+<!-- Shopping Cart Section End -->
+
+{% endblock %}

@@ -1,0 +1,25 @@
+{% extends "base.html" %}
+{% load static %}
+{% block title %}Inscription | eBrocante{% endblock %}
+{% block content %}
+<section id="form"><!--form-->
+		<div class="container">
+            <div class="row loginBorder">
+                <div class="col-12">
+                <form class="form-group" method="post">
+                    {% csrf_token %}
+                    <div class="col-6 loginBorder RegisterForm mx-auto">
+                        <h2 class="text-center">Information Utilisateur</h2>
+                        {{ customer.as_p }}
+                        {{ customerAddr.as_p }}
+                    </div>
+                    <div class="col-6 loginBorder RegisterForm mx-auto">
+                        <input type="submit" class="btn btn-info btn-block RegisterForm" value="Inscription">
+                        <button type="button" class="btn btn-info btn-block RegisterForm" onclick="location.href='{% url 'Register' %}'">Vider les champs</button>
+                    </div>
+                </form>
+            </div>
+            </div>
+            </div>
+	</section><!--/form-->
+{% endblock %}
