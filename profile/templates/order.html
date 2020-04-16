@@ -1,0 +1,130 @@
+{% extends "base.html" %}
+{% load static %}
+{% load profile_extras %}
+
+{% block title %}
+Mes Commandes | eBrocante
+{% endblock %}
+{% block jquery %}
+<!-- Production version -->
+<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.4.1/jquery.min.js"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.16.0/umd/popper.min.js"></script>
+<script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.4.1/js/bootstrap.min.js"></script>
+{% endblock %}
+{% block content %}
+<section class="order-done">
+        <div class="container">
+            <div class="row">
+                <div class="col-lg-12">
+                    <div class="cart-table">
+                        <table>
+                            <thead>
+                                <tr>
+                                    <th>Numero de commande</th>
+                                    <th>Statues</th>
+                                    <th>Produit</th>
+                                    <th>Addresse</th>
+                                    <th>Suivre</th>
+                                    <th class="p-name">Date de debut</th>
+                                </tr>
+                            </thead>
+
+                            <tbody>
+                                    {% for item in order %}
+									<tr>
+										<td class="cart-title first-row"><h5 class="text-center">{{ item.id }}</h5></td>
+										<td class="cart-title first-row">
+                                            <h5>{{ item.status }}</h5>
+                                        </td>
+                                        <td class="cart-title first-row">
+                                            <button class="btn btn-primary" data-toggle="modal" data-target="#product{{ item.id }}">Article Commander</button>
+                                        </td>
+                                        <td class="cart-title first-row">
+                                            <button class="btn btn-primary" data-toggle="modal" data-target="#order{{ item.id }}">Addresse de livraison</button>
+                                        </td>
+										<td class="cart-title first-row">
+                                            <h5>Suivre le colis</h5>
+                                        </td>
+										<td class="cart-title first-row">
+                                            <h5>{{ item.date }}</h5>
+                                        </td>
+
+									</tr>
+                                    {% endfor %}
+                            </tbody>
+
+                        </table>
+
+                        {% for item in order %}
+                         <div class="modal fade" id="order{{ item.id }}">
+                            <div class="modal-dialog modal-dialog-centered">
+                              <div class="modal-content">
+
+                                <!-- Modal Header -->
+                                <div class="modal-header">
+                                  <h4 class="modal-title">Produit Commender</h4>
+                                  <button type="button" class="close" data-dismiss="modal">&times;</button>
+                                </div>
+                                <!-- Modal body -->
+                                <div class="modal-body text-center">
+                                    <p>Nom : {{ item.address.firstName }}</p>
+                                    <p>Prénom : {{ item.address.lastName }}</p>
+                                    <p>Addresse : {{ item.address.address }}</p>
+                                    <p>Ville : {{ item.address.city }}</p>
+                                    <p>Code Postal : {{ item.address.cp }}</p>
+                                    <p>Pays : {{ item.address.country }}</p>
+                                    <p>Téléphone : {{ item.address.mobile }}</p>
+                                </div>
+                                <!-- Modal footer -->
+                                <div class="modal-footer">
+                                  <button type="button" class="btn btn-secondary" data-dismiss="modal">Fermer</button>
+                                </div>
+
+                              </div>
+                            </div>
+                          </div>
+                        {% for key, value in orderProduct.items %}
+
+                          <div class="modal fade" id="product{{ item.id }}">
+                            <div class="modal-dialog modal-dialog-centered">
+                              <div class="modal-content">
+
+                                <!-- Modal Header -->
+                                <div class="modal-header">
+                                  <h4 class="modal-title">Produit Commender</h4>
+                                  <button type="button" class="close" data-dismiss="modal">&times;</button>
+                                </div>
+
+                                <!-- Modal body -->
+                                <div class="modal-body">
+                                        {% for i in value %}
+                                            <p>Nom du produit : <a href="{% url 'ViewProduct' i.product.id %}">{{ i.product.name }}</a></p>
+                                            <p>Prix du produit : {{ i.product.price }} Euros</p>
+                                            <p>Quantité Commander : {{ i.quantity }}</p>
+                                            <hr>
+                                        {% endfor %}
+
+                                </div>
+
+                                <!-- Modal footer -->
+                                <div class="modal-footer">
+                                  <button type="button" class="btn btn-secondary" data-dismiss="modal">Fermer</button>
+                                </div>
+
+                              </div>
+                            </div>
+                          </div>
+                        {% endfor %}
+
+
+                        {% endfor %}
+
+
+
+
+                    </div>
+                </div>
+            </div>
+        </div>
+</section>
+{% endblock %}

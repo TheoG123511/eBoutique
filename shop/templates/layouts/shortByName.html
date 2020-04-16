@@ -1,0 +1,23 @@
+{% block shortBy %}
+<div class="price-range2"><!--find-by-->
+							<h2>Trier par</h2>
+                                <ul class="list-group">
+                                    <li>
+										<button type="button" class="btn btn-primary btn-block" onclick="location.href='{% url 'shopSortedByName' productName 'star' %}'">
+										<i class="fa fa-star shortByPadding"></i>Pertinence</button>
+									</li>
+                                    <li>
+										<button type="button" class="btn btn-primary btn-block" onclick="location.href='{% url 'shopSortedByName' productName 'date' %}'">
+											<i class="fa fa-clock-o shortByPadding"></i>Dates</button>
+									</li>
+                                    <li>
+										<button type="button" class="btn btn-primary btn-block" onclick="location.href='{% url 'shopSortedByName' productName 'priceDESC' %}'">
+											<i class="fa fa-caret-square-o-up shortByPadding"></i>Prix décroisant</button>
+									</li>
+                                    <li>
+										<button type="button" class="btn btn-primary btn-block" onclick="location.href='{% url 'shopSortedByName' productName 'priceASC' %}'">
+											<i class="fa fa-caret-square-o-down shortByPadding"></i>Prix croisant</button>
+									</li>
+                                </ul>
+						</div><!--/find-by-->
+{% endblock %}

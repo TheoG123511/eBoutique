@@ -1,0 +1,65 @@
+{% block footer %}
+    <footer id="footer"><!--Footer-->
+
+		<div class="footer-widget">
+			<div class="container">
+				<div class="row">
+					<div class="col-md-4">
+						<div class="single-widget">
+							<h2>Informations</h2>
+							<ul class="footerNoPadding">
+								<li><a href="#">Paiement sécurisé</a></li>
+								<li><a href="#">Livraison</a></li>
+								<li><a href="#">Mentions légales</a></li>
+								<li><a href="#">Conditions Général de Vente</a></li>
+								<li><a href="#">FAQ’s</a></li>
+							</ul>
+						</div>
+					</div>
+					<div class="col-md-4">
+						<div class="single-widget">
+							<h2>Liens rapide</h2>
+							<ul class="footerNoPadding">
+								<li><a href="{% url 'Login' %}">Connexion</a></li>
+								<li><a href="{% url 'Register' %}">Inscription</a></li>
+								<li><a href="{% url 'contact' %}">Nous Contactez</a></li>
+							</ul>
+						</div>
+					</div>
+
+					<div class="col-md-4">
+						<div class="single-widget">
+							<h2>Restez toujours informés !</h2>
+							<p>Inscrivez-vous à notre newsletter et soyez informés des actualités.</p>
+							<form action="{% url 'newsLetter' %}" class="form-group" method="get">
+								<input type="text" placeholder="Votre Email" class="form-control RegisterForm" id="news" name="email" required/>
+								<div class="error-news" id="error"></div>
+								<div class="done-news" id="done"></div>
+								{% if terms %}
+								<input type="hidden" name="next" value="{{ request.path }}?search={{ terms }}">
+								{% elif getParam %}
+								<input type="hidden" name="next" value="{{ request.path }}?{{ getParam }}">
+								{% else %}
+								<input type="hidden" name="next" value="{{ request.path }}">
+								{% endif %}
+								<button type="submit" class="btn btn-primary active btn-block">S'inscrire</button>
+							</form>
+
+						</div>
+					</div>
+
+				</div>
+			</div>
+		</div>
+
+		<div class="footer-bottom">
+			<div class="container">
+				<div class="row">
+					<p class="pull-left">Copyright © 2019 BrocanteEnLigne tous droits reservé.</p>
+					<p class="pull-right">Designed by <span>Théo Gaillard</span></p>
+				</div>
+			</div>
+		</div>
+
+	</footer><!--/Footer-->
+    {% endblock %}

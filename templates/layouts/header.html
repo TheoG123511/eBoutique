@@ -1,0 +1,35 @@
+{% load static %}
+{% block header %}
+    <header id="header"><!--header-->
+
+		<div class="header-middle"><!--header-middle-->
+			<div class="container">
+				<div class="row">
+					<div class="col-sm-4">
+						<div class="logo pull-left">
+							<a href="{% url 'index' %}"><img src="{% static 'img/home/logo.png' %}" alt="" /></a>
+						</div>
+
+					</div>
+					<div class="col-sm-8">
+						<div class="shop-menu pull-right">
+							<ul>
+								<li><a href="{% url 'DashBoard' %}"><i class="fa fa-user"></i>Bienvenue, {{ user.username|default:"Visiteur" }}</a></li>
+                                {% block BasketNumber %}
+								<li><a href="{% url 'Basket' %}"><i class="fa fa-shopping-cart"></i> Panier ({{ basketCount|default:"0" }})</a></li>
+                                {% endblock %}
+								{% if user.is_authenticated %}
+									<li><a href="{% url 'Logout' %}"><i class="fa fa-lock"></i>Deconnection</a></li>
+								{% else %}
+									<li><a href="{% url 'Login' %}"><i class="fa fa-lock"></i>Connection</a></li>
+								{% endif %}
+
+								<li><a href="{% url 'contact' %}"><i class="fa fa-comments-o"></i>Nous Contacter</a></li>
+							</ul>
+						</div>
+					</div>
+				</div>
+			</div>
+		</div><!--/header-middle-->
+	</header><!--/header-->
+    {% endblock %}

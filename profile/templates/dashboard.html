@@ -1,0 +1,74 @@
+{% extends "base.html" %}
+{% load static %}
+{% block title %}DashBoard {{ user.username }} | brocante en ligne{% endblock %}
+{% block content %}
+    <section>
+            <div class="container dashBoard">
+
+                <div class="row">
+                    <div class="col-md-12 dashBoard">
+                        <div class="left-sidebar">
+                            <h2 class="text-center">Mon tableau de bord</h2>
+                            <h2>Mon Compte</h2>
+                            <div class="panel-group category-products" id="accordian"><!--category-productsr-->
+                                <div class="panel panel-default">
+                                    <div class="panel-heading">
+                                        <h4 class="panel-title">
+                                            <a data-toggle="collapse" data-parent="#accordian" href="#commande">
+                                                <span class="badge pull-right"><i class="fa fa-plus"></i></span>
+                                                Mes commandes
+                                            </a>
+                                        </h4>
+                                    </div>
+                                    <div id="commande" class="panel-collapse collapse">
+                                        <div class="panel-body">
+                                            <ul>
+                                                <li><a href="{% url 'ViewOrder' %}">Mes Commandes</a></li>
+                                            </ul>
+                                        </div>
+                                    </div>
+                                </div>
+
+                                <div class="panel panel-default">
+                                    <div class="panel-heading">
+                                        <h4 class="panel-title">
+                                            <a data-toggle="collapse" data-parent="#accordian" href="#information">
+                                                <span class="badge pull-right"><i class="fa fa-plus"></i></span>
+                                                Mes Informations
+                                            </a>
+                                        </h4>
+                                    </div>
+                                    <div id="information" class="panel-collapse collapse">
+                                        <div class="panel-body">
+                                            <ul>
+                                                <li><a href="#">Changer mon mot de passe</a></li>
+                                            </ul>
+                                        </div>
+                                    </div>
+                                </div>
+
+                                <div class="panel panel-default">
+                                    <div class="panel-heading">
+                                        <h4 class="panel-title">
+                                            <a data-toggle="collapse" data-parent="#accordian" href="#autres">
+                                                <span class="badge pull-right"><i class="fa fa-plus"></i></span>
+                                                Autres
+                                            </a>
+                                        </h4>
+                                    </div>
+                                    <div id="autres" class="panel-collapse collapse">
+                                        <div class="panel-body">
+                                            <ul>
+                                                <li><a href="{% url 'Basket' %}">Mon panier</a></li>
+                                            </ul>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div><!--/category-products-->
+
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
+{% endblock %}

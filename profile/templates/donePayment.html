@@ -1,0 +1,23 @@
+{% extends "base.html" %}
+{% load static %}
+{% load profile_extras %}
+{% block title %}Commande effectué avec succes | eBrocante{% endblock %}
+{% block search %}
+{% endblock %}
+{% block content %}
+<section>
+    <div class="row">
+        <div class="container donmkdePayment">
+            <div class="col-lg-4 mx-auto">
+                <img src="{% static 'img/done.png' %}" alt="">
+            </div>
+            <div class="col-lg-8 mx-auto">
+                <h3 class="text-center">Succes votre commande a bien été enregistrer</h3>
+                <p class="text-center">L'identifiant de votre commande est : {{ OrderId }}. Votre commande a bien été enregistrer, nous la traiterons dans les meilleurs delais.<br>
+                    Vous pouvez suivre l'avencement de votre commande en <a href="{% url 'ViewOrder' %}">cliquant ici</a><br>
+                    De plus un mail de confirmation vous sera envoyer sur votre boite mail</p>
+            </div>
+        </div>
+    </div>
+</section>
+{% endblock %}

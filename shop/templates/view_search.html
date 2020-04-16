@@ -1,0 +1,83 @@
+{% extends "base.html" %}
+{% load static %}
+{% load shop_extras %}
+{% block title %}Recherche {{ terms }} | eBrocante{% endblock %}
+
+{% block scriptJs %}
+{% endblock %}
+
+{% block content %}
+<!-- Product Shop Section Begin -->
+<section class="product-shop spad">
+        <div class="container">
+            <div class="row">
+                <div class="col-lg-3 col-md-6 col-sm-8 order-2 order-lg-1 produts-sidebar-filter">
+                    <div class="left-sidebar">
+						{% include 'layouts/category.html' %}
+						{% include 'layouts/priceRangeByName.html' %}
+						{% include 'layouts/shortByName.html' %}
+					</div>
+                </div>
+
+                <div class="col-lg-9 order-1 order-lg-2">
+                    <div class="product-show-option">
+                        <div class="row">
+
+							{% if product.has_other_pages %}
+								<div class="col-lg-5 col-md-5 text-right">
+									<p>Page {{ product.number }} - {{ product.paginator.num_pages }}</p>
+								</div>
+							{% endif %}
+                        </div>
+                    </div>
+                    <div class="product-list">
+                        <div class="row">
+
+							{% for prod in product %}
+                            <div class="col-lg-4 col-sm-6">
+                                <div class="product-item">
+                                    <div class="pi-pic">
+                                        <img src="{{ prod.image.url }}" alt="">
+                                        <div class="sale pp-sale">Nouveau</div>
+                                        <ul>
+                                            <li class="quick-view"><a href="{% url 'ViewProduct' prod.id %}">+ Voir l'offre</a></li>
+                                        </ul>
+                                    </div>
+                                    <div class="pi-text">
+                                        <a href="{% url 'ViewProduct' prod.id %}">
+                                            <h5>{{ prod.name }}</h5>
+                                        </a>
+                                        <div class="product-price">
+                                            ${{ prod.price }}
+                                            <span>${% randomPrice prod.price %}</span>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+							{% endfor %}
+
+                        </div>
+                    </div>
+					{% include 'layouts/paginator.html' %}
+
+                </div>
+
+            </div>
+        </div>
+    </section>
+<!-- Product Shop Section End -->
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+{% endblock %}

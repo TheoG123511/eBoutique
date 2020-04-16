@@ -1,0 +1,29 @@
+
+{% block category %}
+<h2>Categorie</h2>
+<div class="panel-group category-products" id="accordian"><!--category-productsr-->
+                        {% for cat, sub in categoryProduct.items %}
+                            {% if sub.count %}
+                            <div class="panel panel-default">
+								<div class="panel-heading">
+									<h4 class="panel-title">
+										<a data-toggle="collapse" data-parent="#accordian" href="#{{ cat }}">
+											<span class="badge pull-right"><i class="fa fa-plus"></i></span>
+											{{ cat }}
+										</a>
+									</h4>
+								</div>
+								<div id="{{ cat }}" class="panel-collapse collapse">
+									<div class="panel-body">
+										<ul>
+                                             {% for items in sub %}
+                                                <li><a href="{% url 'viewCategory' items.id %}">{{ items.name }}</a></li>
+                                            {% endfor %}
+										</ul>
+									</div>
+								</div>
+							</div>
+                            {% endif %}
+                        {% endfor %}
+						</div><!--/category-productsr-->
+{% endblock %}

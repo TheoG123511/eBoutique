@@ -1,0 +1,39 @@
+{% extends "base.html" %}
+{% load static %}
+{% block title %}Login | eBrocante{% endblock %}
+
+{% block content %}
+<section id="form"><!--form-->
+		<div class="container">
+            <div class="row">
+                <div class="col-sm-5 mx-auto loginBorder">
+                   <h3 class="text-center">Identifiez-vous</h3>
+						<form action="{% url 'Login' %}" class="form-group" method="post">
+                            {% csrf_token %}
+                            <div class="form-group">
+                                {{ form.as_p }}
+                            </div>
+                            <div class="loginForm">
+							<input type="checkbox" class="checkbox-inline" id="autoConnect">
+							<label for="autoConnect">Rester connecté</label>
+							<a href="#">Mot de passe Oublié ?</a>
+							</div>
+							<div>
+								<input type="submit" class="btn btn-info btn-block" value="Connection">
+							</div>
+                        </form>
+                </div>
+
+            </div>
+			<div class="row paddingTop">
+				<div class="col-sm-6 mx-auto loginBorder">
+						<h3 class="text-center">Nouveau chez LaBrocanteEnLigne ?</h3>
+						<button type="button" class="btn btn-info btn-block" onclick="location.href='{% url 'Register' %}'">Créer votre compte</button>
+				</div>
+			</div>
+
+		</div>
+	</section><!--/form-->
+
+
+{% endblock %}
